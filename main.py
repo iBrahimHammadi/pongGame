@@ -15,6 +15,10 @@ opponent = pygame.Rect(10, height/2 -70, 10, 140)
 light_grey = (200, 200, 200)
 bg_color = pygame.Color('grey12')
 
+#Adding the ball velocity
+ball_speed_x = 5
+ball_speed_y = 5
+
 #Creating the game loop
 run = True
 while run:
@@ -23,6 +27,13 @@ while run:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+    
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+    if ball.top <= 0 or ball.bottom >= height:
+        ball_speed_y *= -1
+    if ball.right >= width or ball.left <= 0:
+        ball_speed_x *= -1
 
     Screen.fill(bg_color)
     pygame.draw.rect(Screen, light_grey, player)
