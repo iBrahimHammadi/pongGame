@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, random
 
 def ball_animation():
     global ball_speed_x, ball_speed_y 
@@ -12,7 +12,10 @@ def ball_animation():
         ball_speed_x *= -1
 
 def ball_restart():
+    global ball_speed_x, ball_speed_y
     ball.center = ((width/2),(height/2))
+    ball_speed_x *= random.choice((-1,1))
+    ball_speed_y *= random.choice((-1,1))
 
 def player_animation():
     player.y += player_speed
@@ -48,8 +51,8 @@ light_grey = (200, 200, 200)
 bg_color = pygame.Color('grey12')
 
 #Adding the velocity
-ball_speed_x = 5
-ball_speed_y = 5
+ball_speed_x = 5 * random.choice((-1,1))
+ball_speed_y = 5 * random.choice((-1,1))
 player_speed = 0
 opponent_speed = 5
 
