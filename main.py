@@ -7,9 +7,12 @@ def ball_animation():
     if ball.top <= 0 or ball.bottom >= height:
         ball_speed_y *= -1
     if ball.right >= width or ball.left <= 0:
-        ball_speed_x *= -1
+        ball_restart()
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
+
+def ball_restart():
+    ball.center = ((width/2),(height/2))
 
 def player_animation():
     player.y += player_speed
