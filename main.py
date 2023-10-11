@@ -1,12 +1,16 @@
 import pygame, sys, random
 
 def ball_animation():
-    global ball_speed_x, ball_speed_y 
+    global ball_speed_x, ball_speed_y, player_score, opponent_score
     ball.x += ball_speed_x
     ball.y += ball_speed_y
     if ball.top <= 0 or ball.bottom >= height:
         ball_speed_y *= -1
-    if ball.right >= width or ball.left <= 0:
+    if ball.right >= width:
+        opponent_score += 1
+        ball_restart()
+    if ball.left <= 0:
+        player_score += 1
         ball_restart()
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
@@ -56,6 +60,12 @@ ball_speed_y = 5 * random.choice((-1,1))
 player_speed = 0
 opponent_speed = 5
 
+#Adding the Score variables
+player_score = 0
+opponent_score = 0
+game_font = pygame.font.Font("freesansbold.ttf", 32) 
+
+
 #Creating the game loop
 run = True
 while run:
@@ -84,6 +94,14 @@ while run:
     pygame.draw.rect(Screen, light_grey, opponent)
     pygame.draw.ellipse(Screen, light_grey, ball)
     pygame.draw.aaline(Screen, light_grey, (width/2, 0), (width/2, height))
+
+    #Drawing the text on the display screen
+    player_text = game_font.render(f"{player_score}",False, light_grey )
+    Screen.blit(player_text, (width/2 + 20, height/2))
+
+    opponent_text = game_font.render(f"{opponent_score}", False, light_grey)
+    Screen.blit(opponent_text, (width/2 - 40, height/2))
+
     #updating the window
     pygame.display.flip()
     clock.tick(60)
