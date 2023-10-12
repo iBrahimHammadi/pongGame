@@ -9,10 +9,13 @@ def ball_animation():
     if ball.right >= width:
         opponent_score += 1
         ball_restart()
+        pygame.mixer.Sound.play(score_sound)
     if ball.left <= 0:
         player_score += 1
         ball_restart()
+        pygame.mixer.Sound.play(score_sound)
     if ball.colliderect(player) or ball.colliderect(opponent):
+        pygame.mixer.Sound.play(hitting_sound)
         ball_speed_x *= -1
 
 def ball_restart():
@@ -65,7 +68,9 @@ player_score = 0
 opponent_score = 0
 game_font = pygame.font.Font("freesansbold.ttf", 32) 
 
-
+#importing the ball sounds
+score_sound = pygame.mixer.Sound('score.wav')
+hitting_sound = pygame.mixer.Sound('hitting.wav')
 #Creating the game loop
 run = True
 while run:
